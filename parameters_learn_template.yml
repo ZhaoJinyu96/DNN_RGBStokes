@@ -1,0 +1,130 @@
+#----------------------------
+# Parameters for training
+#   Define these parameters,
+#   and then, run 'train.py'.
+#----------------------------
+train:
+    task:
+    #   normal_estimation, dif_spe_separation
+    #   normal_disAmbiguate, illumination_estimation
+        "illumination_estimation"
+
+    modal: # modal name
+    #   s0s1s2, s0s1s2_gray
+    #   only_s0, only_s0_gray, only_s0_gray3ch, 
+    #   s0DopPhase, s0DopPhase_gray, 
+    #   fourPolar, fourPolar_gray
+        "s0DopPhase_gray"
+
+    networkname:
+    #   ResNet18, ResNet34, ResNet34_UpProj, 
+    #   PBR_CVPR2017, PBR_CVPR2017_mod,
+    #   PBR_CVPR2017_mod_concat, PBR_CVPR2017_mod_deep
+    #   FC_DenseNet67
+        "PBR_CVPR2017_mod"
+
+    batchsize:
+    #   the number of images contained in a mini-batch
+        8
+
+    bit:
+    #   bit number of the input images
+    #   As for now, several bit numbers cannot be
+    #   used simultaniously in a learning.
+        16
+
+    range_max:
+    #   the max pixel-value of input data.
+    #   images are normalized into [0, range_max]
+        255.
+
+    max_epoch:
+    #   how many epochs do you want to iterate
+        1000
+
+    reduce:
+    #   If you want to use full images, input 1.
+    #   Another case, eg. want to use 1/3 of the data, input 3.
+    #   Only integer is allowed.
+        1
+
+    lossname:
+    #   masked_mean_squared_error, masked_MSE_gradient_error,
+    #   masked_dot_product_error, masked_mean_squared_error_difspeWeight
+        "masked_mean_squared_error"
+
+    optimizername:
+    #   SGD, Adam, Amsgrad
+        "Adam"
+
+    lr:
+    #   learning rate
+        0.001
+
+    wd:
+    #   weight decay
+        0
+
+    savename:
+    #   learned models will be saved in
+    #   currentDir/savepath/Model/xxxx_modalname_networkname
+        "xxxx"
+
+    gpu_id:
+    #   if use GPU, 0. otherwise, -1
+    #   https://docs.chainer.org/en/stable/index.html
+        0
+
+    csvpath:
+    #   must be a list object.
+    #   filepath to path.csv.
+        - "./normal_estimation/Picture/forDEBUG/"
+        - "./normal_estimation/Picture/wo_ground/"
+
+    sequence_num:
+    #   if 0, your learning will start from initial epoch.
+    #   if >0, your learning will start from designated epoch.
+        0
+
+#----------------------------
+# Parameters for inferencing.
+#   Define these parameters,
+#   and then, run 'inference.py'.
+#----------------------------
+inference:
+    task:
+    #   normal_estimation, dif_spe_separation
+    #   normal_disAmbiguate
+        "normal_estimation"
+    result:
+    #   result name.
+    #   If the learned model you want to use for inferencing 
+    #   is located in "./task/Result/YOURRESULT/Model/",
+    #   then input "YOURRESULT".
+        "YOURRESULT"
+    csvpaths:
+    #   csvpaths:
+    #   file path to path.csv
+        - "./normal_estimation/Picture/eval_dataset/prim2/"
+        - "./normal_estimation/Picture/eval_dataset/prim3/"
+        - "./normal_estimation/Picture/eval_dataset/prim5/"
+        - "./normal_estimation/Picture/eval_dataset/prim10/"
+        - "./normal_estimation/Picture/eval_dataset/monkey/"
+        - "./normal_estimation/Picture/eval_dataset/bunny/"
+        - "./normal_estimation/Picture/Real/deskBunny/"
+        - "./normal_estimation/Picture/Real/openBunny/"
+        - "./normal_estimation/Picture/Real/colCheck_deskBunny/"
+    usenormal:
+    #   Only used in normal_disAmbiguate mode.
+    #   If False, this code uses the GT normal for inference.
+    #   If "./dif_spe_separation/Result/hoge/Inference/epoch-100/test",
+    #   this code uses the inferenced normal of the designated folder.
+       "./dif_spe_separation/Result/20190705_4material_doubledata/Inference/epoch-110/test"
+    epoch_num:
+    #   In the case of "./task/Result/YOURRESULT/Model/snapchot_epoch-100",
+    #   then input 100. Please do not use quotation mark.
+        - 100
+    bit:
+    #   bit number of your input images
+        16
+    
