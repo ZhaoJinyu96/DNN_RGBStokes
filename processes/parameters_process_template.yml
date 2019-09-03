@@ -1,0 +1,60 @@
+dataAugmentation:
+    task:
+    #   normal_estimation, dif_spe_separation
+        "dif_spe_separation"
+    csvpath:
+    #   must be a Python list object.
+    #   filepath to path.csv.
+        - "../dif_spe_separation/Picture/forDEBUG/"
+    augnames:
+    #   augmentation name you want to apply
+    #   "flip_horizontal", "crop", "blur", "noise", "intensity"
+        - "flip_horizontal"
+        - "blur"
+        - "noise"
+    bit:
+        16
+
+makeMaskImage:
+    csvpath:
+        - "../dif_spe_separation/Picture/forDEBUG/"
+
+makeTestCSV:
+    path:
+        "../dif_spe_separation/Picture/test/20190719_reals_all/"
+
+makePhaseMask:
+    csvpath:
+        - "../dif_spe_separation/Picture/forDEBUG/"
+
+changeGTfromNormalToSpeDif:
+    picture:
+        - "../dif_spe_separation/Picture/test"
+
+makeNormalFromDiffuse:
+    result:
+        "20190507_withlight1_gray"
+    epoch:
+        140
+
+makeAmbNormalFromGT:
+    path:
+        - "../dif_spe_separation/Picture/forDEBUG/20190304_prim2_001"
+
+makeNormalfromS0S1S2:
+    path:
+        "../dif_spe_separation/Picture/forDEBUG/20190304_prim2_001"
+
+removeSaturatedImages:
+    path:
+        - "../dif_spe_separation/Picture/intensityCheck/20190527_prim2_shikkuiSakura_2lights_001"
+
+checkTrain_MaskNumbers:
+    path:
+        - "../dif_spe_separation/Picture/forDEBUG/"
+
+deleteFolders:
+    path:
+        - "../dif_spe_separation/Picture/forDEBUG/"
+    deletename:
+        "_intensity"

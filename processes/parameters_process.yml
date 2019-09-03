@@ -1,0 +1,23 @@
+dataAugmentation:
+    task:
+    #   normal_estimation, dif_spe_separation
+        "illumination_estimation"
+    csvpath:
+    #   must be a Python list object.
+    #   filepath to path.csv.
+        - "../normal_estimation/Picture/sample_learn1"
+        - "../normal_estimation/Picture/sample_learn2"
+    augnames:
+    #   augmentation name you want to apply
+    #   "flip_horizontal", "crop", "blur", "noise", "intensity"
+        - "flip_horizontal"
+        - "blur"
+        - "noise"
+    bit:
+        16
+
+makeMaskImage:
+    csvpath:
+        #- "../normal_estimation/Picture/sample_learn1"
+        #- "../normal_estimation/Picture/sample_learn2"
+        - "../illumination_estimation/Picture/"
