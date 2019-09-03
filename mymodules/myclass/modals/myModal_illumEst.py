@@ -13,7 +13,8 @@ import mymodules.myclass.modals.myOperationBase as myOperationBase
 import mymodules.myutils.polarutils as pol
 import mymodules.myutils.pathutils as ptl
 
-
+from shutil import copy
+#import shutil
 
 class Dataset_illumEst_base(myDatasetBase.Dataset_base):
         
@@ -21,21 +22,33 @@ class Dataset_illumEst_base(myDatasetBase.Dataset_base):
 
         pairs = np.empty((0, 5), dtype=str)
         
-        for csvnum in range(len(path_list)):
+        for csvnum in range(len(path_list)-1):
+
+            if csvnum % 2 == 1:
+                continue
             
+
             path = path_list[csvnum]
             path_spe = ptl.trainPath2spePath(path)
             csv      = np.loadtxt(path.joinpath("path.csv"),
                                       delimiter=",", dtype=str)
+
+            path_sphere = path_list[csvnum + 1]
+            path_sphere_spe = ptl.trainPath2spePath(path_sphere)
+            #csv_sphere      = np.loadtxt(path_sphere.joinpath("path.csv"), delimiter=",", dtype=str)
+            #shutil.copytree(str(path_sphere_spe.joinpath("train")), str(path_spe.joinpath("gt")))
             
             for imgnum in range(csv.shape[0]):
                 if imgnum % reduce ==0:
                     s0_path   = str(path_spe.joinpath("train", csv[imgnum, 0]))
                     s1_path   = str(path_spe.joinpath("train", csv[imgnum, 1]))
                     s2_path   = str(path_spe.joinpath("train", csv[imgnum, 2]))
-                    
+
                     mask_path = str(path.joinpath("mask" , csv[imgnum, 3]))
-                    gt_path   = str(path.joinpath("gt" , csv[imgnum, 3]))
+
+                    #copy(str(path_sphere_spe.joinpath("train", csv[imgnum, 0])), str(path_spe.joinpath("gt")))
+                    #gt_path   = str(path.joinpath("gt" , csv[imgnum, 3]))
+                    gt_path = str(path_sphere_spe.joinpath("train", csv[imgnum, 0]))
                     
                     pairs = np.append(pairs, 
                                       np.array([[s0_path, s1_path, s2_path, mask_path, gt_path]]), 
