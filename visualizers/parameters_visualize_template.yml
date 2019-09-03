@@ -1,0 +1,271 @@
+
+#-----------------------------------------------------
+# Parameters for the scripts which visualize
+# reconstruction error on each image.
+# The scripts which use these parameters are
+# as follows:
+#       - visualize_recError_perImg.py
+#       - visualize_depthError.py
+#       - visualize_depthError_byZenith.py
+#       - visualize_GasoFov.py
+#       - visualize_diffuseErr.py
+#-----------------------------------------------------
+recError_per_image:
+    task:
+    # normal_estimation, dif_spe_separation
+        "normal_estimation"
+    gtfolder:
+    # filepath to 'path.csv' of GT normal.
+    # Please refer to the following description:
+    #   Ex1)
+    #   '../normal_estimation/Picture/foo/bar/path.csv'
+    #       -> 'foo/bar/'
+        "eval_dataset/bunny"
+    resultname:
+    # The filename of inference results
+    # If your inference results are stored in
+    # the following place:
+    #   '../normal_estimation/Result/hoge/Inference/'
+    #       -> 'hoge'
+        "20190327_prim5th_woCrop_camDistNear"
+    epochnum:
+    # epoch number on which you want to calculate recon error
+        20
+    # After loading these parameters, then
+    # '../task/Result/resultname/Inference/epoch-{epochnum}/gtfolder/'
+    # is applied to the target.
+    maskFlag:
+    # Calculate the reconstruction error only about
+    # the designated area.
+    # "all", "ground" and "object" can be used.
+    # If you do not have any mask image, then input False.
+    # False shoud be interpreted 'bool', so you cannot use quotation mark.
+        object
+    s0threshold:
+    # When you want to remove the pixels which do not have any values,
+    # input some number which is larger than 0.
+        500
+    saveFlag:
+    # The name of output files.
+    # If you input 'hoge', then your visualized errors will be stored in,
+    # ../task/Result/resultname/Inference/epoch-{epochnum}/gtfolder/hoge/'
+    # If you do not have any mask image, then input False.
+    # False shoud be interpreted 'bool', so you cannot use quotation mark.
+        "TEST"
+
+
+#-----------------------------------------------------
+# Parameters for the scripts which visualize
+# reconstruction error per epoch, but the plotted color
+# is not defined on result but defined on data.
+# The scripts which use these parameters are
+# as follows:
+#       - visualize_recErr_per_data.py
+#-----------------------------------------------------
+recError_per_data:
+    task:
+    # normal_estimation, dif_spe_separation
+        "dif_spe_separation"
+    data_names1:
+    # filepath to 'path.csv' of GT normal.
+    # Please refer to the following description:
+    #   Ex1)
+    #   If you want to use 
+    #   '../normal_estimation/Picture/foo1/bar1/path.csv' and
+    #   '../normal_estimation/Picture/foo2/bar2/path.csv', then input
+    #       - 'foo1/bar1/'
+    #       - 'foo2/bar2/'
+        - "test/20190624_WashiAwa"
+        - "test/20190624_ceraMic"
+        - "test/20190624_BunGray"
+        - "test/20190716_PPeek_001"
+        - "test/20190716_tegoro_001"
+    data_names2:
+        - "test/20190731_bunny_BunGray_BunPinkRoof_001"
+        - "test/20190731_bunny_ceramic_BunPinkRoof_001"
+        - "test/20190731_bunny_PEEK_BunPinkRoof_001"
+        - "test/20190731_bunny_tegoro_BunPinkRoof_001"
+        - "test/20190731_bunny_washi_BunPinkRoof_001"
+    resultname:
+    # The filename of inference results
+    # If your inference results are located in
+    # the following place:
+    #   '../normal_estimation/Result/hoge1/Inference/'
+    # then please input
+    #   'hoge1'
+        "20190724_6mat_env_mulmul"
+    shapes1:
+        - "o"
+        - "^"
+        - "+"
+        - "D"
+        - ">"
+    # - "<"
+    # - "X"
+    # - "1"
+    # - "p"
+    # - "d"
+    shapes2:
+        - "o"
+        - "^"
+        - "+"
+        - "D"
+        - ">"
+    # - "<"
+    # - "X"
+    # - "1"
+    # - "p"
+    # - "d"
+    colors:
+        - "gold"
+        - "green"
+    epochLim:
+        260
+    s0threshold:
+    # When you want to remove the pixels which do not have any values,
+    # input some number which is larger than 0.
+        600
+    maskFlag:
+    # "all", "ground" and "object"
+        "object"
+    saveFlag:
+    # The name of output files.
+    # If you input 'hoge', then your visualized errors will be stored in,
+    # ../task/Result/resultname/Inference/epoch-{epochnum}/gtfolder/hoge/'
+    # If you do not have any mask image, then input False.
+    # False shoud be interpreted 'bool', so you cannot use quotation mark.
+        False
+
+
+#-----------------------------------------------------
+# Parameters for the scripts which visualize
+# reconstruction error per epoch.
+# The scripts which use these parameters are
+# as follows:
+#       - visualize_recErr_per_epoch.py
+#-----------------------------------------------------
+recError_per_epoch:
+    task:
+    # normal_estimation, dif_spe_separation
+        "dif_spe_separation"
+    data_names:
+    # filepath to 'path.csv' of GT normal.
+    # Please refer to the following description:
+    #   Ex1)
+    #   If you want to use 
+    #   '../normal_estimation/Picture/foo1/bar1/path.csv' and
+    #   '../normal_estimation/Picture/foo2/bar2/path.csv', then input
+    #       - 'foo1/bar1/'
+    #       - 'foo2/bar2/' 
+        - "test/20190426_bunny_1light/"
+    resultnames:
+    # The filename of inference results
+    # If your inference results are located in
+    # the following place:
+    #   '../normal_estimation/Result/hoge1/Inference/'
+    #   '../normal_estimation/Result/hoge2/Inference/'
+    # then please input
+    #   - 'hoge1'
+    #   - 'hoge2'
+        - "20190314_prim5th_woCrop_s0DopPhase"
+        - "20190315_prim5th_woCrop_cameraDist_s0DopPhase"
+        - "20190318_prim5th_woCrop_cameraDistDouble_s0DopPhase"
+        - "20190327_prim5th_woCrop_camDistNear"
+        - "20190329_camDistNear2nd"
+    labels:
+        - "cam dist 3"
+        - "cam dist 2, 3"
+        - "cam dist 1, 2, 3"
+        - "cam dist 2, 3, 5"
+        - "cam dist 2, 3, 4, 5"
+    shapes:
+        - "o"
+        - "^"
+        - "+"
+        - "D"
+    colors:
+        - "red"
+        - "blue"
+        - "green"
+        - "orange"
+        - "black"
+    epochLim:
+        250
+    s0threshold:
+    # When you want to remove the pixels which do not have any values,
+    # input some number which is larger than 0.
+        600
+    maskFlag:
+    # "all", "ground" and "object"
+        False 
+    saveFlag:
+    # The name of output files.
+    # If you input 'hoge', then your visualized errors will be stored in,
+    # ../task/Result/resultname/Inference/epoch-{epochnum}/gtfolder/hoge/'
+    # If you do not have any mask image, then input False.
+    # False shoud be interpreted 'bool', so you cannot use quotation mark.
+        False
+
+
+#-----------------------------------------------------
+# Parameters for the scripts which visualize
+# reconstruction error per image number.
+# The scripts which use these parameters are
+# as follows:
+#       - visualize_recErr_per_sceneNum.py
+#-----------------------------------------------------
+recError_per_sceneNum:
+    data_names:
+        - "prim2"
+        - "prim10"
+        - "monkey"
+        - "bunny"
+    resultnames:
+        - "20190207_prim_s0DopPhase"
+        - "20190213_prim2nd_s0DopPhase"
+        - "20190218_prim3rd_s0DopPhase"
+        - "20190219_prim4th_s0DopPhase"
+        - "20190221_prim5th_s0DopPhase"
+        - "20190306_prim6th_s0DopPhase"
+    epochs:
+        - 100
+        - 80
+        - 100
+        - 100
+        - 70
+        - 80
+    savename:
+        "../normal_estimation/eror_per_imgNum_prim2_prim10_monkey_bunny.png"
+    colors:
+        - "red"
+        - "magenta"
+        - "blue"
+        - "green"
+    maskFlag:
+        True
+    saveFlag:
+        True
+
+#-----------------------------------------------------
+#       visualize_network.py
+#-----------------------------------------------------
+visualize_network:
+    networkname:
+        "FC_DenseNet67"
+    task:
+        normal_estimation
+    in_size:
+        9
+    batch_size:
+        1
+    height:
+        192
+    width:
+        256
+
+#-----------------------------------------------------
+#       visualize_loss.py
+#-----------------------------------------------------
+visualize_loss:
+    path:
+        "../normal_estimation/Result/20190306_prim6th_onlys0_gray/"
